@@ -1,9 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(/*DBManager* dbController*/QWidget *parent)
+MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
-      /*db_controller(dbController)*/
       ui(new Ui::MainWindow)
 {
     // adminUi = new Ui::AdminPage;

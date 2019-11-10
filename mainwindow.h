@@ -16,7 +16,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(/*DBManager* dbController*/QWidget *parent = nullptr);  // Default constructor
+    MainWindow(QWidget *parent = nullptr);  // Default constructor
     ~MainWindow();  // Destructor
 
 private slots:

@@ -17,14 +17,14 @@
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>0</x>
       <y>0</y>
-      <width>891</width>
-      <height>581</height>
+      <width>911</width>
+      <height>591</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="storeManagerHomePage">
      <widget class="QLabel" name="label">
@@ -65,6 +65,24 @@
        <string>Go to Daily Sales Reports</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="totalPurchasesPushBtn">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>150</y>
+        <width>181</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Go to Total Purchases</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="dailySalesReportsPage">
      <widget class="QLabel" name="label_2">
@@ -90,10 +108,10 @@
      <widget class="QTableView" name="tableView">
       <property name="geometry">
        <rect>
-        <x>150</x>
+        <x>160</x>
         <y>50</y>
-        <width>591</width>
-        <height>401</height>
+        <width>711</width>
+        <height>391</height>
        </rect>
       </property>
      </widget>
@@ -149,24 +167,190 @@
      <widget class="QLabel" name="label_4">
       <property name="geometry">
        <rect>
-        <x>766</x>
-        <y>40</y>
-        <width>71</width>
-        <height>20</height>
+        <x>221</x>
+        <y>461</y>
+        <width>121</width>
+        <height>16</height>
        </rect>
       </property>
       <property name="text">
-       <string>Total Revenue</string>
+       <string>Total Revenue (7.75%): </string>
       </property>
      </widget>
      <widget class="QLineEdit" name="totalRevenueLineEdit">
       <property name="geometry">
        <rect>
-        <x>760</x>
-        <y>60</y>
+        <x>380</x>
+        <y>460</y>
+        <width>133</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="displayByExecBtn">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>190</y>
+        <width>111</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Display by Executive</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="displayByRegBtn">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>240</y>
+        <width>111</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Display by Regular</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>221</x>
+        <y>491</y>
+        <width>153</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Number of Executive Members: </string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="execMembersLineEdit">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>491</y>
+        <width>133</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>520</y>
+        <width>161</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Number of Regular Members: </string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="regMembersLineEdit">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>520</y>
+        <width>133</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="totalPurchasesPage">
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>191</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>TOTAL PURCHASES PAGE</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="totalPurchasesBackBtn">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>520</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Back</string>
+      </property>
+     </widget>
+     <widget class="QTableView" name="totalPurchasesTableView">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>50</y>
+        <width>531</width>
+        <height>421</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>500</y>
+        <width>111</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Grand Tota (7.75%)</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="grandTotalLineEdit">
+      <property name="geometry">
+       <rect>
+        <x>330</x>
+        <y>500</y>
         <width>113</width>
         <height>20</height>
        </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="displayByItemBtn">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>110</y>
+        <width>121</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Display by Item</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="displayByAllMembersBtn">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>160</y>
+        <width>121</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Display by all Members</string>
       </property>
      </widget>
     </widget>

@@ -18,6 +18,7 @@ public:
     explicit StoreManagerPage(QWidget *parent = nullptr);   // Default constructor
     ~StoreManagerPage();    // Destructor
 
+    //----------------------------STORY 1 CODE-----------------------------------------//
      void showTable(QSqlQueryModel *model);
 
      // setupConnections() - Sets up connections so that different pages open based on various clicked buttons
@@ -34,16 +35,62 @@ public:
 
      void GoToHomePage();
 
-
-//private slots:
-//     void on_day1PushBtn_clicked();
-
-//     void on_day2PushBtn_clicked();
-
-//     void on_day3PushBtn_clicked();
+     void ChangeToTotalPurchasesPage();
 
 private slots:
+     /*******************************************************
+      * on_dateEnterBtn_clicked() -
+      *    This function obtains a date from a widget.
+      *    Based on the date, it will calculate the
+      *    total revenue for that date. In addition, it will
+      *    display all the table information for the given date
+      *    onto the table view
+      *******************************************************/
      void on_dateEnterBtn_clicked();
+
+     /*******************************************************
+      * on_displayByExecBtn_clicked() -
+      *    This function displays the executive members
+      *    and their information onto the table.
+      *    Depending on the date entered, either all of their
+      *    purchases or certain purchases on a given day will
+      *    be displayed
+      *******************************************************/
+     void on_displayByExecBtn_clicked();
+
+     /*******************************************************
+      * on_displayByExecBtn_clicked() -
+      *    This function displays the regular members
+      *    and their information onto the table.
+      *    Depending on the date entered, either all of their
+      *    purchases or certain purchases on a given day will
+      *    be displayed
+      *******************************************************/
+     void on_displayByRegBtn_clicked();
+
+     // -------------STORY 2 & 3 FUNCTIONS-----------------//
+     /*******************************************************
+     * showTotalPurchasesTable(QSqlQueryModel *model) -
+     *   This function will set the totalPurchasesTableView
+     *   to be the model that is passsed in
+     *******************************************************/
+     void showTotalPurchasesTable(QSqlQueryModel *model);
+
+     /*******************************************************
+     * on_displayByItemBtn_clicked() -
+     *   This functions calls on showTablePurchasesTable()
+     *   function in order to load the total purchases regarding
+     *   item information
+     *******************************************************/
+     void on_displayByItemBtn_clicked();
+
+     /*******************************************************
+     * on_displayByAllMembersBtn_clicked() -
+     *   This functions calls on showTablePurchasesTable()
+     *   function in order to load the total purchases regarding
+     *   members' information
+     *******************************************************/
+     void on_displayByAllMembersBtn_clicked();
 
 private:
     Ui::StoreManagerPage *ui;
