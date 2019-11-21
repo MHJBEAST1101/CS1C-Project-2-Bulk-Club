@@ -21,6 +21,14 @@ public:
     //----------------------------STORY 1 CODE-----------------------------------------//
      void showTable(QSqlQueryModel *model);
 
+     /*******************************************************
+      * ShowDatesInComboBox(QSqlQueryModel *model) -
+      *     This function sets the dates combo box widget
+      *     to be whatever the return model of type
+      *     QSqlQueryModel is
+      *******************************************************/
+     void ShowDatesInComboBox(QSqlQueryModel *model);
+
      // setupConnections() - Sets up connections so that different pages open based on various clicked buttons
      void setupConnections();
 
@@ -36,6 +44,7 @@ public:
      void GoToHomePage();
 
      void ChangeToTotalPurchasesPage();
+
 
 private slots:
      /*******************************************************
@@ -91,6 +100,19 @@ private slots:
      *   members' information
      *******************************************************/
      void on_displayByAllMembersBtn_clicked();
+
+
+     /*******************************************************
+     * on_displayAllInfoBtn_clicked()-
+     *   After a store manager clicks on the
+     *   displayAllInfoBtn widget, then the table in
+     *   dailySalesReportPage will contain ALL the information
+     *   throughout the week. Moreover, the total revenue
+     *   generated as well as the # of executive/regular members
+     *   will be shown
+     *******************************************************/
+     void on_displayAllInfoBtn_clicked();
+
 
 private:
     Ui::StoreManagerPage *ui;
