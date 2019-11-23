@@ -35,6 +35,7 @@ void AdminPage::ChangeToaddItem()
 
 void AdminPage::on_deleteCustomersBttn_clicked()
 {
+    QSqlQuery data;
     QString deleteCustomer = QInputDialog::getText(this, tr("QInputDialog::getText()"),
                                                    tr("Customer name:"), QLineEdit::Normal,
                                                    QDir::home().dirName());
@@ -47,6 +48,7 @@ void AdminPage::on_deleteCustomersBttn_clicked()
 
 void AdminPage::on_addButton_clicked()
 {
+    QSqlQuery data;
     QString name = ui->addName ->text();
     QString ID = ui->addID->text();
     QString customerType = ui->addType->text();
@@ -55,7 +57,6 @@ void AdminPage::on_addButton_clicked()
     QString expYear = ui->addYear->text();
 
     data.prepare("INSERT INTO Customers (name, ID, type, expMonth, expDay, expYear) VALUES('"+name+"', '"+ID+"', '"+customerType+"', '"+expMonth+"', '"+expDay+"', '"+expYear+"')");
-    data.exec();
 
     if(data.exec())
     {
@@ -79,12 +80,12 @@ void AdminPage::on_cancelButton_clicked()
 
 void AdminPage::on_addItemConfirm_clicked()
 {
+    QSqlQuery data;
     QString itemName = ui->addItemName->text();
     QString itemPrice = ui->addItemPrice->text();
     QString itemQuantity = ui->addItemQty->text();
 
-    data.prepare("INSERT INTO inventory (item, price, quantity) VALUES ('"+itemName+"', '"+itemPrice+"', '"+itemQuantity+"'");
-    data.exec();
+    data.prepare("INSERT INTO inventory (item, price, quantity) VALUES ('"+itemName+"', '"+itemPrice+"', '"+itemQuantity+"')");
 
     if(data.exec())
     {
@@ -105,11 +106,12 @@ void AdminPage::on_cancelButton_3_clicked()
 
 void AdminPage::on_deleteItemBttn_clicked()
 {
+    QSqlQuery data;
     QString deleteItem = QInputDialog::getText(this, tr("QInputDialog::getText()"),
                                                tr("Item to be deleted:"), QLineEdit::Normal,
                                                QDir::home().dirName());
 
-    data.prepare("DELETE FROM inventory WHERE item == '"+deleteItem+"");
+    data.prepare("DELETE FROM inventory WHERE item == '"+deleteItem+"'");
     data.exec();
 
     QMessageBox::about(this, "", "The item was deleted. double check if error occured");
