@@ -4,7 +4,7 @@ DBManager::DBManager()
 {
     // Connecting to database
     m_database = QSqlDatabase::addDatabase("QSQLITE");
-    m_database.setDatabaseName("C:/CS1C-Project-2-Bulk-Club-matt-s-branch/CS1CProject2.db⁩");
+    m_database.setDatabaseName("G:/CS1C Lebowitz/Qt Workspace/Project 2 Bulk Club Updated/CS1CProject2BulkClub/CS1CProject2.db⁩");
     if(!m_database.open())
     {
         qDebug() << "problem opening database" << endl;
@@ -96,7 +96,7 @@ double DBManager::GetTotalRevenue(QString date)
     // the value of the total revenue from the date
     if(date == "")
     {
-        qry.prepare("select printf(\"%.2f\",((sum(price) * sum(quantity)) + (sum(price) * sum(quantity))*.0775)) as \"Total revenue\" from dailySalesReport;");
+        qry.prepare("select printf(\"%.2f\",sum(price * quantity)*1.0775) as \"Total revenue\" from dailySalesReport;");
         qry.exec();
         if(qry.next())
         {
@@ -105,7 +105,7 @@ double DBManager::GetTotalRevenue(QString date)
     }
     else
     {
-        qry.prepare("select printf(\"%.2f\",((sum(price) * sum(quantity)) + (sum(price) * sum(quantity))*.0775)) "
+        qry.prepare("select printf(\"%.2f\", sum(price * quantity)*1.0775) "
                     "as \"Total revenue\" from dailySalesReport where purchaseDate = \""+date+"\";");
         qry.exec();
         if(qry.next())
@@ -232,6 +232,31 @@ int DBManager::ReturnMemberTypeCount(QString date, QString memberType)
 
 }
 
+/*******************************************************
+* loadDateEntriesOnly()-
+*  This function returns a QSqlQueryModel consisting
+*  of only the purchaseDate entries from the
+*  dailySalesReport table in the database.
+*  This function will be called by the store manager to
+*  set the date combo box to the returned model
+*  RETURNS QSqlQueryModel
+*******************************************************/
+QSqlQueryModel *DBManager::loadDateEntriesOnly()
+{
+    QSqlQueryModel *model = new QSqlQueryModel();
+    QSqlQuery qry;
+
+    qry.prepare("select purchaseDate from dailySalesReport group by purchaseDate;");
+
+    if(!qry.exec())
+    {
+        qDebug() <<"error Loading values to db" << endl;
+    }
+    model->setQuery(qry);
+
+    return model;
+}
+
 //------------------------------------------STORY 2 & 3 CODE-------------------------------------//
 /*******************************************************
 *loadTotalMemberOrItemPurchases(QString decider)-
@@ -247,13 +272,13 @@ QSqlQueryModel *DBManager::loadTotalMemberOrItemPurchases(QString decider)
 
     if(decider == "Members" || decider == "members")
     {
-        qry.prepare("SELECT name, type, Customers.ID, \"$\" || printf(\"%.2f\",((sum(price) * sum(quantity)) + (sum(price) * sum(quantity))*.0775))"
+        qry.prepare("SELECT name, type, Customers.ID, \"$\" || printf(\"%.2f\",sum(price * quantity)*1.0775)"
                     " as \"Total revenue (7.75%)\" from Customers, dailySalesReport where Customers.ID = dailySalesReport.ID "
                     "group by Customers.ID order by Customers.ID;");
     }
     else
     {
-        qry.prepare("SELECT item, sum(quantity) as \"quantity sold\", \"$\" || printf(\"%.2f\",((sum(price) * sum(quantity)) + (sum(price) * sum(quantity))*.0775)) "
+        qry.prepare("SELECT item, sum(quantity) as \"quantity sold\", \"$\" || printf(\"%.2f\",sum(price * quantity)*1.0775) "
                     "as \"Total revenue\" from dailySalesReport group by item order by item;");
 
     }
