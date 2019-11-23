@@ -18,7 +18,6 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);  // Default constructor
     ~MainWindow();  // Destructor
-    // MainWindow(const MainWindow &otherMainWindow);  // Copy constructor
 
 private slots:
     /*******************************************************
@@ -39,6 +38,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+//    DBManager *db_controller;
     AdminPage adminObj;         // AdminPage class object
     StoreManagerPage storeObj;  // StoreManagerPage class object
 };
