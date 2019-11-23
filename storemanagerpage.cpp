@@ -7,9 +7,6 @@ StoreManagerPage::StoreManagerPage(QWidget *parent) :
     ui->setupUi(this);
     setupConnections(); // Calls setupConnections() function to set up connections
     ui->stackedWidget->setCurrentWidget(ui->storeManagerHomePage);  // If a StoreManager class object is called, then the dafault page will be the home page
-
-    // When the constructor is called, the ShowDatesInComboBox() function is called to automatically set the combo box for date input
-     ShowDatesInComboBox(databaseObj.loadDateEntriesOnly());
 }
 
 StoreManagerPage::~StoreManagerPage()
@@ -21,18 +18,7 @@ StoreManagerPage::~StoreManagerPage()
 //------------------------------------------------------------STORY 1 CODE---------------------------------------------------------//
 void StoreManagerPage::showTable(QSqlQueryModel *model)
 {
-    ui->tableView->setModel(model);     // showTable() shows the QSqlQueryModel database model to the tableview
-}
-
-/*******************************************************
- * ShowDatesInComboBox(QSqlQueryModel *model) -
- *     This function sets the dates combo box widget
- *     to be whatever the return model of type
- *     QSqlQueryModel is
- *******************************************************/
-void StoreManagerPage::ShowDatesInComboBox(QSqlQueryModel *model)
-{
-    ui->dateComboBox->setModel(model);
+    ui->tableView->setModel(model);     // showCustomerList() shows the QSqlQueryModel database model to the tableview
 }
 
 /*******************************************************
@@ -53,8 +39,8 @@ void StoreManagerPage::on_dateEnterBtn_clicked()
     int executiveCount = 0;
     int regularCount = 0;
 
-    // INPUT - Obtains input from the dateComboBox widget
-    dateEntered =  ui->dateComboBox->currentText();
+    // INPUT - Obtains input from the dateLineEdit widget
+    dateEntered =  ui->dateLineEdit->text();
 
     // Calls on databaseObj obejct to calculate the total revenue for the specified date
     revenue = databaseObj.GetTotalRevenue(dateEntered);
@@ -88,8 +74,8 @@ void StoreManagerPage::on_displayByExecBtn_clicked()
 {
      QString dateEntered;
 
-     // INPUT - Obtains input from the dateComboBox widget
-     dateEntered =  ui->dateComboBox->currentText();
+     // INPUT - Obtains input from the dateLineEdit widget
+     dateEntered =  ui->dateLineEdit->text();
 
      showTable(databaseObj.loadEntriesByType(dateEntered, "Executive"));
 }
@@ -106,53 +92,11 @@ void StoreManagerPage::on_displayByRegBtn_clicked()
 {
     QString dateEntered;
 
-    // INPUT - Obtains input from the dateComboBox widget
-    dateEntered =  ui->dateComboBox->currentText();
+    // INPUT - Obtains input from the dateLineEdit widget
+    dateEntered =  ui->dateLineEdit->text();
 
     showTable(databaseObj.loadEntriesByType(dateEntered, "Regular"));
 }
-
-/*******************************************************
-* on_displayAllInfoBtn_clicked()-
-*   After a store manager clicks on the
-*   displayAllInfoBtn widget, then the table in
-*   dailySalesReportPage will contain ALL the information
-*   throughout the week. Moreover, the total revenue
-*   generated as well as the # of executive/regular members
-*   will be shown
-*******************************************************/
-void StoreManagerPage::on_displayAllInfoBtn_clicked()
-{
-    QString totalRevenueString;
-    double revenue;
-    QString stringExecutiveCount;
-    QString stringRegularCount;
-    int executiveCount = 0;
-    int regularCount = 0;
-
-    // PROCESSING - Obtains total revenue for the entire week.
-    // Sets the table to show all the information from the dailySalesReport table from the database
-    // Sets the total revenue line edit to be the grand total of all purchases
-    revenue = databaseObj.GetTotalRevenue("");
-    totalRevenueString = QString::number(revenue, 'f', 2);
-
-    showTable(databaseObj.loadEntries());
-    ui->dateComboBox->setCurrentText("");   // Once the 'DISPLAY ALL' button is clicked, then the currentText of the combo box will be empty
-
-    ui->totalRevenueLineEdit->setText("$"+totalRevenueString);
-
-    // PROCESSING & OUTPUT - Gets the number of executive/regular members by calling db manager function
-    // Converts both int variables to string,
-    // output them to their corresponding line edits
-    executiveCount = databaseObj.ReturnMemberTypeCount("", "Executive");
-    regularCount = databaseObj.ReturnMemberTypeCount("", "Regular");
-    stringExecutiveCount = QString::number(executiveCount);
-    stringRegularCount = QString::number(regularCount);
-
-    ui->execMembersLineEdit->setText(stringExecutiveCount);
-    ui->regMembersLineEdit->setText(stringRegularCount);
-}
-
 
 //------------------------------------------------------------STORY 2 & 3 CODE---------------------------------------------------------//
 /*******************************************************
@@ -214,8 +158,6 @@ void StoreManagerPage::ChangeToDailySalesReportsPage()
     QString stringRegularCount;
     int executiveCount = 0;
     int regularCount = 0;
-    QLineEdit *lineEdit = new QLineEdit;
-    lineEdit->setPlaceholderText("SELECT DATE");    // Sets default date for combobox(will turn into lineedit)
 
     // PROCESSING - Obtains total revenue for the entire week.
     // Sets the table to show all the information from the dailySalesReport table from the database
@@ -225,11 +167,7 @@ void StoreManagerPage::ChangeToDailySalesReportsPage()
 
     showTable(databaseObj.loadEntries());
     ui->stackedWidget->setCurrentWidget(ui->dailySalesReportsPage);
-
-    // Changes combo box to be a line edit in order to set the current text to be empty
-    ui->dateComboBox->setLineEdit(lineEdit);
-    ui->dateComboBox->setCurrentText("");
-
+    ui->dateLineEdit->clear();
 
     ui->totalRevenueLineEdit->setText("$"+totalRevenueString);
 

@@ -14,12 +14,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-//MainWindow::MainWindow(const MainWindow &otherMainWindow)
-//{
-//    qDebug() << "Copy constructor called";
-//    ui = otherMainWindow.ui;
-//}
-
 /*******************************************************
  * on_loginPushBtn_clicked() -
  *  This function error checks for right username and
