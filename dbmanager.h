@@ -89,6 +89,56 @@ public:
     *******************************************************/
     QSqlQueryModel *loadTotalMemberOrItemPurchases(QString decider);
 
+    //----------------------Story 9 and 10--------------------------------//
+    /*******************************************************
+    * *loadItemsOnly() -
+    *  This function returns a QSqlQueryModel consisting
+    *  of only the item entries from the database. The entries
+    *  will be returned via QSqlQueryModel in order to set the
+    *  item combo box to the specific item names
+    *  RETURNS QSqlQueryModel
+    *******************************************************/
+    QSqlQueryModel *loadItemsOnly();
+
+    /*******************************************************
+    * *loadNamesOnly() -
+    *  This function returns a QSqlQueryModel consisting
+    *  of only the member name entries from the database. The entries
+    *  will be returned via QSqlQueryModel in order to set the
+    *  name combo box to the specific member names
+    *  RETURNS QSqlQueryModel
+    *******************************************************/
+    QSqlQueryModel *loadNamesOnly();
+
+    /*******************************************************
+    * *ShowInfoForOneMember(QString name) -
+    *  This function returns a QSqlQueryModel consisting
+    *  of information about a single member by passing in
+    *   the name of the member
+    *******************************************************/
+    QSqlQueryModel *ShowInfoForOneMember(QString name);
+
+    /*******************************************************
+    * *ShowInfoForOneItem(QString item) -
+    *  This function returns a QSqlQueryModel consisting
+    *  of information about a single item by passing in
+    *   the name of the item
+    *******************************************************/
+    QSqlQueryModel *ShowInfoForOneItem(QString item);
+
+  // -----------------STORY 7 CODE-------------------------//
+    // This function adds new customers to the Customers table when admin is creating purchases
+    void AddToCustomersTable(QString name, QString id, QString type, int month, int day, int year);
+
+    // This function will add new customer info to the dailySalesReport table when admin is creating purchases
+    void AddToDailySalesReport(QString id, QString item, int quantity);
+
+    // This function returns the item price based on the itemName
+    double GetItemPrice(QString itemName);
+
+    //----------------END of Story 7 code-------------------//
+
+
 
 private:
     QSqlDatabase m_database;
