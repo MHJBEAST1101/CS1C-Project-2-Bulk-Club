@@ -58,6 +58,12 @@ public:
     QLineEdit *grandTotalLineEdit;
     QPushButton *displayByItemBtn;
     QPushButton *displayByAllMembersBtn;
+    QPushButton *enterItemPushBtn;
+    QPushButton *enterNamePushBtn;
+    QComboBox *itemComboBox;
+    QComboBox *nameComoboBox;
+    QLabel *label_9;
+    QLabel *label_10;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -70,12 +76,12 @@ public:
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         stackedWidget = new QStackedWidget(centralwidget);
         stackedWidget->setObjectName(QString::fromUtf8("stackedWidget"));
-        stackedWidget->setGeometry(QRect(0, 0, 911, 591));
+        stackedWidget->setGeometry(QRect(-10, 0, 911, 591));
         storeManagerHomePage = new QWidget();
         storeManagerHomePage->setObjectName(QString::fromUtf8("storeManagerHomePage"));
         label = new QLabel(storeManagerHomePage);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(10, 30, 201, 16));
+        label->setGeometry(QRect(30, 30, 281, 31));
         QFont font;
         font.setPointSize(12);
         font.setBold(true);
@@ -83,13 +89,13 @@ public:
         label->setFont(font);
         dailySalesReportsPushBtn = new QPushButton(storeManagerHomePage);
         dailySalesReportsPushBtn->setObjectName(QString::fromUtf8("dailySalesReportsPushBtn"));
-        dailySalesReportsPushBtn->setGeometry(QRect(280, 110, 181, 23));
+        dailySalesReportsPushBtn->setGeometry(QRect(230, 110, 231, 23));
         QFont font1;
         font1.setPointSize(10);
         dailySalesReportsPushBtn->setFont(font1);
         totalPurchasesPushBtn = new QPushButton(storeManagerHomePage);
         totalPurchasesPushBtn->setObjectName(QString::fromUtf8("totalPurchasesPushBtn"));
-        totalPurchasesPushBtn->setGeometry(QRect(280, 150, 181, 23));
+        totalPurchasesPushBtn->setGeometry(QRect(230, 150, 231, 23));
         totalPurchasesPushBtn->setFont(font1);
         stackedWidget->addWidget(storeManagerHomePage);
         dailySalesReportsPage = new QWidget();
@@ -103,43 +109,43 @@ public:
         tableView->setGeometry(QRect(160, 50, 711, 391));
         dailySalesBackBtn = new QPushButton(dailySalesReportsPage);
         dailySalesBackBtn->setObjectName(QString::fromUtf8("dailySalesBackBtn"));
-        dailySalesBackBtn->setGeometry(QRect(10, 530, 75, 23));
+        dailySalesBackBtn->setGeometry(QRect(30, 530, 75, 23));
         label_3 = new QLabel(dailySalesReportsPage);
         label_3->setObjectName(QString::fromUtf8("label_3"));
-        label_3->setGeometry(QRect(30, 70, 61, 20));
+        label_3->setGeometry(QRect(30, 70, 101, 20));
         dateEnterBtn = new QPushButton(dailySalesReportsPage);
         dateEnterBtn->setObjectName(QString::fromUtf8("dateEnterBtn"));
         dateEnterBtn->setGeometry(QRect(30, 130, 61, 23));
         label_4 = new QLabel(dailySalesReportsPage);
         label_4->setObjectName(QString::fromUtf8("label_4"));
-        label_4->setGeometry(QRect(221, 461, 121, 16));
+        label_4->setGeometry(QRect(181, 461, 161, 20));
         totalRevenueLineEdit = new QLineEdit(dailySalesReportsPage);
         totalRevenueLineEdit->setObjectName(QString::fromUtf8("totalRevenueLineEdit"));
         totalRevenueLineEdit->setGeometry(QRect(380, 460, 133, 20));
         displayByExecBtn = new QPushButton(dailySalesReportsPage);
         displayByExecBtn->setObjectName(QString::fromUtf8("displayByExecBtn"));
-        displayByExecBtn->setGeometry(QRect(10, 200, 111, 23));
+        displayByExecBtn->setGeometry(QRect(20, 190, 121, 23));
         displayByRegBtn = new QPushButton(dailySalesReportsPage);
         displayByRegBtn->setObjectName(QString::fromUtf8("displayByRegBtn"));
-        displayByRegBtn->setGeometry(QRect(10, 240, 111, 23));
+        displayByRegBtn->setGeometry(QRect(20, 240, 121, 23));
         label_5 = new QLabel(dailySalesReportsPage);
         label_5->setObjectName(QString::fromUtf8("label_5"));
-        label_5->setGeometry(QRect(221, 491, 153, 16));
+        label_5->setGeometry(QRect(183, 491, 191, 20));
         execMembersLineEdit = new QLineEdit(dailySalesReportsPage);
         execMembersLineEdit->setObjectName(QString::fromUtf8("execMembersLineEdit"));
         execMembersLineEdit->setGeometry(QRect(380, 491, 133, 20));
         label_6 = new QLabel(dailySalesReportsPage);
         label_6->setObjectName(QString::fromUtf8("label_6"));
-        label_6->setGeometry(QRect(220, 520, 161, 20));
+        label_6->setGeometry(QRect(180, 520, 201, 20));
         regMembersLineEdit = new QLineEdit(dailySalesReportsPage);
         regMembersLineEdit->setObjectName(QString::fromUtf8("regMembersLineEdit"));
         regMembersLineEdit->setGeometry(QRect(380, 520, 133, 20));
         dateComboBox = new QComboBox(dailySalesReportsPage);
         dateComboBox->setObjectName(QString::fromUtf8("dateComboBox"));
-        dateComboBox->setGeometry(QRect(30, 90, 81, 22));
+        dateComboBox->setGeometry(QRect(20, 90, 91, 22));
         displayAllInfoBtn = new QPushButton(dailySalesReportsPage);
         displayAllInfoBtn->setObjectName(QString::fromUtf8("displayAllInfoBtn"));
-        displayAllInfoBtn->setGeometry(QRect(10, 360, 111, 23));
+        displayAllInfoBtn->setGeometry(QRect(20, 360, 121, 23));
         stackedWidget->addWidget(dailySalesReportsPage);
         totalPurchasesPage = new QWidget();
         totalPurchasesPage->setObjectName(QString::fromUtf8("totalPurchasesPage"));
@@ -159,7 +165,7 @@ public:
         totalPurchasesTableView->setGeometry(QRect(140, 50, 531, 421));
         label_8 = new QLabel(totalPurchasesPage);
         label_8->setObjectName(QString::fromUtf8("label_8"));
-        label_8->setGeometry(QRect(210, 500, 111, 20));
+        label_8->setGeometry(QRect(200, 500, 121, 20));
         grandTotalLineEdit = new QLineEdit(totalPurchasesPage);
         grandTotalLineEdit->setObjectName(QString::fromUtf8("grandTotalLineEdit"));
         grandTotalLineEdit->setGeometry(QRect(330, 500, 113, 20));
@@ -169,6 +175,24 @@ public:
         displayByAllMembersBtn = new QPushButton(totalPurchasesPage);
         displayByAllMembersBtn->setObjectName(QString::fromUtf8("displayByAllMembersBtn"));
         displayByAllMembersBtn->setGeometry(QRect(10, 160, 121, 23));
+        enterItemPushBtn = new QPushButton(totalPurchasesPage);
+        enterItemPushBtn->setObjectName(QString::fromUtf8("enterItemPushBtn"));
+        enterItemPushBtn->setGeometry(QRect(760, 120, 75, 23));
+        enterNamePushBtn = new QPushButton(totalPurchasesPage);
+        enterNamePushBtn->setObjectName(QString::fromUtf8("enterNamePushBtn"));
+        enterNamePushBtn->setGeometry(QRect(760, 340, 75, 23));
+        itemComboBox = new QComboBox(totalPurchasesPage);
+        itemComboBox->setObjectName(QString::fromUtf8("itemComboBox"));
+        itemComboBox->setGeometry(QRect(720, 70, 151, 22));
+        nameComoboBox = new QComboBox(totalPurchasesPage);
+        nameComoboBox->setObjectName(QString::fromUtf8("nameComoboBox"));
+        nameComoboBox->setGeometry(QRect(720, 300, 151, 22));
+        label_9 = new QLabel(totalPurchasesPage);
+        label_9->setObjectName(QString::fromUtf8("label_9"));
+        label_9->setGeometry(QRect(740, 40, 91, 16));
+        label_10 = new QLabel(totalPurchasesPage);
+        label_10->setObjectName(QString::fromUtf8("label_10"));
+        label_10->setGeometry(QRect(730, 270, 111, 20));
         stackedWidget->addWidget(totalPurchasesPage);
         StoreManagerPage->setCentralWidget(centralwidget);
         menubar = new QMenuBar(StoreManagerPage);
@@ -181,7 +205,7 @@ public:
 
         retranslateUi(StoreManagerPage);
 
-        stackedWidget->setCurrentIndex(1);
+        stackedWidget->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(StoreManagerPage);
@@ -205,9 +229,13 @@ public:
         displayAllInfoBtn->setText(QCoreApplication::translate("StoreManagerPage", "DISPLAY ALL", nullptr));
         label_7->setText(QCoreApplication::translate("StoreManagerPage", "TOTAL PURCHASES PAGE", nullptr));
         totalPurchasesBackBtn->setText(QCoreApplication::translate("StoreManagerPage", "Back", nullptr));
-        label_8->setText(QCoreApplication::translate("StoreManagerPage", "Grand Tota (7.75%)", nullptr));
+        label_8->setText(QCoreApplication::translate("StoreManagerPage", "Grand Total (7.75%)", nullptr));
         displayByItemBtn->setText(QCoreApplication::translate("StoreManagerPage", "Display by Item", nullptr));
         displayByAllMembersBtn->setText(QCoreApplication::translate("StoreManagerPage", "Display by all Members", nullptr));
+        enterItemPushBtn->setText(QCoreApplication::translate("StoreManagerPage", "Enter Item", nullptr));
+        enterNamePushBtn->setText(QCoreApplication::translate("StoreManagerPage", "Enter name", nullptr));
+        label_9->setText(QCoreApplication::translate("StoreManagerPage", "Enter Item name:", nullptr));
+        label_10->setText(QCoreApplication::translate("StoreManagerPage", "Enter Member name:", nullptr));
     } // retranslateUi
 
 };

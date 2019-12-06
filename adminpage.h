@@ -25,6 +25,18 @@ public:
 
      void ChangeToaddItem();
 
+     void ChangeToAdminHomePage();
+
+     // Story 7 code
+     void ChangeToCreatePurchasesPage();                // Changes to Create Purchases Page, will clear/set all the line edits, combo boxes
+
+     void ShowItemsInComboBox(QSqlQueryModel *model);   // Shows item names in item combo box
+
+     void ShowQuantityInComboBox();                     // Shows quantities in qty combo box
+
+     void ShowCustomerTypeInComboBox();                 // Shows customer type in customer combo box
+     // End story 7 code //
+
 private slots:
 
      void on_deleteCustomersBttn_clicked();
@@ -44,6 +56,8 @@ private slots:
      void on_addItemBttn_clicked();
 
      void on_Close_clicked();
+
+     void on_createPurchasePushBtn_clicked();       // Story 7 slot, will allow purchases to happen after admin clicks on the button
 
 private:
     Ui::AdminPage *ui;
