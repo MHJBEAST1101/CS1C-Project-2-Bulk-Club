@@ -90,6 +90,27 @@ public:
     QSqlQueryModel *loadTotalMemberOrItemPurchases(QString decider);
 
 
+    //---------------------STORY 5 CODE------------------------------
+    /*******************************************************
+    * loadEntriesByExpirDate(QString expirDate, QString memberType)-
+    *  This function returns a QSqlQueryModel consisting
+    *  of only the expiration month entries from the
+    *  dailySalesReport table in the database.
+    *  This function will be called by the store manager to
+    *  set the expiration month combo box to the returned model
+    *  RETURNS QSqlQueryModel
+    *******************************************************/
+    QSqlQueryModel * loadEntriesByExpirDate(QString expirDate, QString memberType);
+
+    /*******************************************************
+    *loadTotalMemberOrItemPurchases(QString decider)-
+    *   Depending on the given decider string, this function
+    *   will load the expiration month from all members
+    *   RETURNS model (QSqlQueryModel)
+    *******************************************************/
+    QSqlQueryModel * loadMembersByExpirationDate();
+
+
 private:
     QSqlDatabase m_database;
 };
