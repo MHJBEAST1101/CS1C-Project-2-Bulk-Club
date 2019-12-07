@@ -4,7 +4,7 @@ DBManager::DBManager()
 {
     // Connecting to database
     m_database = QSqlDatabase::addDatabase("QSQLITE");
-    m_database.setDatabaseName("G:/CS1C Lebowitz/Qt Workspace/Project 2 Bulk Club Updated/CS1CProject2BulkClub/CS1CProject2.db⁩");
+    m_database.setDatabaseName("C:/Users/wesleyc/Documents/very extracted/CS1C-Project-2-Bulk-Club-matt-s-branch.db⁩");
     if(!m_database.open())
     {
         qDebug() << "problem opening database" << endl;
@@ -291,3 +291,81 @@ QSqlQueryModel *DBManager::loadTotalMemberOrItemPurchases(QString decider)
 
     return model;
 }
+//------------------------------------------STORY 4 CODE-------------------------------------//
+
+
+
+//------------------------------------------STORY 5 CODE-------------------------------------//
+/*******************************************************
+* loadEntriesByExpirDate(QString expirDate, QString memberType)-
+*  This function returns a QSqlQueryModel consisting
+*  of only the expiration month entries from the
+*  dailySalesReport table in the database.
+*  This function will be called by the store manager to
+*  set the expiration month combo box to the returned model
+*  RETURNS QSqlQueryModel
+*******************************************************/
+QSqlQueryModel * DBManager::loadEntriesByExpirDate(QString expirDate, QString memberType)
+{
+    QSqlQueryModel * model = new QSqlQueryModel();
+
+    QSqlQuery qry;
+
+
+
+    if(expirDate == "")
+    {
+        qry.prepare("select name, type, dailySalesReport.ID, expMonth, expDay, expYear "
+                    " from Customers, dailySalesReport where Customers.ID = dailySalesReport.ID;");
+    }
+    else
+    {
+        qry.prepare("select name, type, dailySalesReport.ID, expMonth, expDay, expYear "
+                    " from Customers, dailySalesReport where CustomersID. = dailySalesReport.ID"
+                    " and purchaseDate = \""+expirDate+"\";");
+
+    }
+
+    if(memberType == "Executive")
+    {
+        qry.prepare("UPDATE Customers set Cost for New Membership = 120)");
+
+    }
+    else
+    {
+        qry.prepare("UPDATE Customers set Cost for New Membership = 65");
+    }
+
+    if(!qry.exec())
+    {
+        qDebug() << "error Loading values to db" << endl;
+    }
+    model->setQuery(qry);
+
+    return model;
+}
+
+/*******************************************************
+*loadTotalMemberOrItemPurchases(QString decider)-
+*   Depending on the given decider string, this function
+*   will load the expiration month from all members
+*   RETURNS model (QSqlQueryModel)
+*******************************************************/
+QSqlQueryModel * DBManager::loadMembersByExpirationDate()
+{
+    QSqlQueryModel * model = new QSqlQueryModel();
+    QSqlQuery qry;
+
+    qry.prepare("select expirDate from dailySalesReport group by expirDate");
+
+    if(!qry.exec())
+    {
+            qDebug() << "error Loading values to db" << endl;
+    }
+    model->setQuery(qry);
+
+    return model;
+
+}
+
+
