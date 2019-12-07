@@ -113,6 +113,12 @@ private slots:
      *******************************************************/
      void on_displayAllInfoBtn_clicked();
 
+     void on_displayByExpirBtn_clicked();
+//-----------------------STORY 5 CODE---------------------------------------------------------//
+     void ShowExpirMonthsInComboBox(QSqlQueryModel *model);
+
+     void on_monthExpirComboBox_clicked();
+
 
 private:
     Ui::StoreManagerPage *ui;
