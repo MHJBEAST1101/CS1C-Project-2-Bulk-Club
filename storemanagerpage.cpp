@@ -10,6 +10,9 @@ StoreManagerPage::StoreManagerPage(QWidget *parent) :
 
     // When the constructor is called, the ShowDatesInComboBox() function is called to automatically set the combo box for date input
      ShowDatesInComboBox(databaseObj.loadDateEntriesOnly());
+
+     ShowExpirMonthsInComboBox(databaseObj.loadMembersByExpirationDate());
+
 }
 
 StoreManagerPage::~StoreManagerPage()
@@ -34,6 +37,8 @@ void StoreManagerPage::ShowDatesInComboBox(QSqlQueryModel *model)
 {
     ui->dateComboBox->setModel(model);
 }
+
+
 
 /*******************************************************
  * on_dateEnterBtn_clicked() -
@@ -124,6 +129,7 @@ void StoreManagerPage::on_displayByRegBtn_clicked()
 void StoreManagerPage::on_displayAllInfoBtn_clicked()
 {
     QString totalRevenueString;
+    QString rebateExecMembersString;
     double revenue;
     QString stringExecutiveCount;
     QString stringRegularCount;
@@ -140,6 +146,7 @@ void StoreManagerPage::on_displayAllInfoBtn_clicked()
     ui->dateComboBox->setCurrentText("");   // Once the 'DISPLAY ALL' button is clicked, then the currentText of the combo box will be empty
 
     ui->totalRevenueLineEdit->setText("$"+totalRevenueString);
+    ui->rebateExecMembersLineEdit->setText("$"+rebateExecMembersString);
 
     // PROCESSING & OUTPUT - Gets the number of executive/regular members by calling db manager function
     // Converts both int variables to string,
@@ -262,4 +269,40 @@ void StoreManagerPage::ChangeToTotalPurchasesPage()
     totalRevenueString = QString::number(revenue, 'f', 2);
 
     ui->grandTotalLineEdit->setText("$"+totalRevenueString);
+}
+
+/*******************************************************
+ * on_displayByExpirBtn_clicked() -
+ *    This function displays the regular members
+ *    and their information onto the table.
+ *    Depending on the date entered, either all of their
+ *    purchases or certain purchases on a given day will
+ *    be displayed
+ *******************************************************/
+void StoreManagerPage::on_displayByExpirBtn_clicked()
+{
+    QString dateExpirEntered;
+
+    dateExpirEntered = ui->dateComboBox->currentText();
+
+    showTable(databaseObj.loadEntriesByType(dateExpirEntered, "expMonth"));
+    showTable(databaseObj.loadEntriesByType(dateExpirEntered, "expDay"));
+    showTable(databaseObj.loadEntriesByType(dateExpirEntered, "expYear"));
+
+
+}
+//---------------------------------STORY 4 CODE---------------------------------------------------------//
+
+//---------------------------------STORY 5 CODE---------------------------------------------------------//
+void StoreManagerPage::ShowExpirMonthsInComboBox(QSqlQueryModel *model)
+{
+    ui->monthExpirComboBox->setModel(model);
+}
+
+void StoreManagerPage::on_monthExpirComboBox_clicked()
+{
+    QString expirMonthEntered;
+
+    expirMonthEntered = ui->monthExpirComboBox->currentText();
+
 }
