@@ -1,4 +1,5 @@
 #include "storemanagerpage.h"
+#include <QMessageBox>
 
 StoreManagerPage::StoreManagerPage(QWidget *parent) :
     QMainWindow(parent),
@@ -10,6 +11,12 @@ StoreManagerPage::StoreManagerPage(QWidget *parent) :
 
     // When the constructor is called, the ShowDatesInComboBox() function is called to automatically set the combo box for date input
      ShowDatesInComboBox(databaseObj.loadDateEntriesOnly());
+
+    // When the constructor is called, the ShowItemsInComboBox() function is called to automatically set the combo box for item name input
+     ShowItemsInComboBox(databaseObj.loadItemsOnly());
+
+     // When the constructor is called, the ShowNamesInComboBox() function is called to automatically set the combo box for member name input
+      ShowNamesInComboBox(databaseObj.loadNamesOnly());
 }
 
 StoreManagerPage::~StoreManagerPage()
@@ -174,6 +181,8 @@ void StoreManagerPage::showTotalPurchasesTable(QSqlQueryModel *model)
 void StoreManagerPage::on_displayByItemBtn_clicked()
 {
     showTotalPurchasesTable(databaseObj.loadTotalMemberOrItemPurchases("Items"));
+    ui->itemComboBox->setCurrentText("");
+    ui->nameComoboBox->setCurrentText("");
 }
 
 /*******************************************************
@@ -185,9 +194,50 @@ void StoreManagerPage::on_displayByItemBtn_clicked()
 void StoreManagerPage::on_displayByAllMembersBtn_clicked()
 {
     showTotalPurchasesTable(databaseObj.loadTotalMemberOrItemPurchases("Members"));
+    ui->itemComboBox->setCurrentText("");
+    ui->nameComoboBox->setCurrentText("");
 }
 
 
+//------------------------------------------------------STORY 9 and 10 Code----------------------------------------------//
+
+void StoreManagerPage::ShowItemsInComboBox(QSqlQueryModel *model)
+{
+    ui->itemComboBox->setModel(model);
+}
+
+void StoreManagerPage::ShowNamesInComboBox(QSqlQueryModel *model)
+{
+    ui->nameComoboBox->setModel(model);
+}
+
+void StoreManagerPage::on_enterItemPushBtn_clicked()
+{
+    QString itemName = ui->itemComboBox->currentText();
+    if(itemName == "")
+    {
+       QMessageBox::warning(this, "Warning", "Please enter an item");
+    }
+    else
+    {
+       showTotalPurchasesTable(databaseObj.ShowInfoForOneItem(itemName));
+    }
+}
+
+void StoreManagerPage::on_enterNamePushBtn_clicked()
+{
+    QString memberName = ui->nameComoboBox->currentText();
+    if(memberName == "")
+    {
+       QMessageBox::warning(this, "Warning", "Please enter a name");
+    }
+    else
+    {
+       showTotalPurchasesTable(databaseObj.ShowInfoForOneMember(memberName));
+    }
+}
+
+//--------------------------------------------------------------------------------------------------//
 
 // -----------------------------------CONNECTIONS FUNCTIONS-------------------------------------------------//
 // setupConnections() - Sets up connections so that different pages open based on various clicked buttons
@@ -254,6 +304,19 @@ void StoreManagerPage::GoToHomePage()
 // Sets current widget to total purchases page
 void StoreManagerPage::ChangeToTotalPurchasesPage()
 {
+    QLineEdit *lineEdit = new QLineEdit;             // Item is used for item combo box
+    lineEdit->setPlaceholderText("SELECT ITEMS");    // Sets default date for combobox(will turn into lineedit)
+
+    // Changes item combo box to be a line edit in order to set the current text to be empty
+    ui->itemComboBox->setLineEdit(lineEdit);
+    ui->itemComboBox->setCurrentText("");
+
+    // Changes name combo box to be a line edit in order to set the current text to be empty
+    lineEdit = new QLineEdit;
+    lineEdit->setPlaceholderText("SELECT MEMBERS");
+    ui->nameComoboBox->setLineEdit(lineEdit);
+    ui->nameComoboBox->setCurrentText("");
+
     ui->stackedWidget->setCurrentWidget(ui->totalPurchasesPage);
 
     QString totalRevenueString;
@@ -262,4 +325,5 @@ void StoreManagerPage::ChangeToTotalPurchasesPage()
     totalRevenueString = QString::number(revenue, 'f', 2);
 
     ui->grandTotalLineEdit->setText("$"+totalRevenueString);
+
 }

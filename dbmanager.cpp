@@ -4,7 +4,7 @@ DBManager::DBManager()
 {
     // Connecting to database
     m_database = QSqlDatabase::addDatabase("QSQLITE");
-    m_database.setDatabaseName("G:/CS1C Lebowitz/Qt Workspace/Project 2 Bulk Club Updated/CS1CProject2BulkClub/CS1CProject2.db⁩");
+    m_database.setDatabaseName("G:/CS1C Lebowitz/Qt Workspace/Project 2 Bulk Club Updated/CS1C Project 2 Bulk Club Merged 1/CS1C-Project-2-Bulk-Club-temporary-master-branch/CS1CProject2.db⁩");
     if(!m_database.open())
     {
         qDebug() << "problem opening database" << endl;
@@ -222,6 +222,7 @@ int DBManager::ReturnMemberTypeCount(QString date, QString memberType)
         }
     }
 
+    // executes query, stores the value in the qry into memberCount by converting to an integer
     qry.exec();
     if(qry.next())
     {
@@ -272,9 +273,9 @@ QSqlQueryModel *DBManager::loadTotalMemberOrItemPurchases(QString decider)
 
     if(decider == "Members" || decider == "members")
     {
-        qry.prepare("SELECT name, type, Customers.ID, \"$\" || printf(\"%.2f\",sum(price * quantity)*1.0775)"
-                    " as \"Total revenue (7.75%)\" from Customers, dailySalesReport where Customers.ID = dailySalesReport.ID "
-                    "group by Customers.ID order by Customers.ID;");
+        qry.prepare("SELECT name, type, Customers.ID, \"$\" || printf(\"%.2f\", ifnull(sum(price * quantity)*1.0775, 0))"
+                   " as \"Total revenue (7.75%)\" from Customers left JOIN dailySalesReport on Customers.ID = dailySalesReport.ID "
+                   " group by Customers.ID order by Customers.ID;");
     }
     else
     {
@@ -290,4 +291,142 @@ QSqlQueryModel *DBManager::loadTotalMemberOrItemPurchases(QString decider)
     model->setQuery(qry);
 
     return model;
+}
+
+//----------------------Story 9 and 10--------------------------------//
+/*******************************************************
+* *loadItemsOnly() -
+*  This function returns a QSqlQueryModel consisting
+*  of only the item entries from the database. The entries
+*  will be returned via QSqlQueryModel in order to set the
+*  item combo box to the specific item names
+*  RETURNS QSqlQueryModel
+*******************************************************/
+QSqlQueryModel *DBManager::loadItemsOnly()
+{
+    QSqlQueryModel *model = new QSqlQueryModel();
+    QSqlQuery qry;
+
+    qry.prepare("select item from inventory order by item;");
+
+    if(!qry.exec())
+    {
+        qDebug() <<"error Loading values to db" << endl;
+    }
+    model->setQuery(qry);
+
+    return model;
+}
+
+QSqlQueryModel *DBManager::loadNamesOnly()
+{
+    QSqlQueryModel *model = new QSqlQueryModel();
+    QSqlQuery qry;
+
+    qry.prepare("select name from Customers order by name;");
+
+    if(!qry.exec())
+    {
+        qDebug() <<"error Loading values to db" << endl;
+    }
+    model->setQuery(qry);
+
+    return model;
+}
+
+QSqlQueryModel *DBManager::ShowInfoForOneMember(QString name)
+{
+    QSqlQueryModel *model = new QSqlQueryModel();
+    QSqlQuery qry;
+
+
+     qry.prepare("SELECT name, type, Customers.ID, \"$\" || printf(\"%.2f\", ifnull(sum(price * quantity)*1.0775, 0))"
+                " as \"Total revenue (7.75%)\" from Customers left JOIN dailySalesReport on Customers.ID = dailySalesReport.ID "
+                "where name = \""+name+"\";");
+
+     if(!qry.exec())
+     {
+         qDebug() <<"error Loading values to db" << endl;
+     }
+
+    model->setQuery(qry);
+    return model;
+
+}
+
+QSqlQueryModel *DBManager::ShowInfoForOneItem(QString item)
+{
+    QSqlQueryModel *model = new QSqlQueryModel();
+    QSqlQuery qry;
+
+    qry.prepare("SELECT item, quantity as \"total quantity sold\", \"$\" || printf(\"%.2f\",(price * quantity)*1.0775) "
+                "as \"Total revenue\" from inventory where item = \""+item+"\";");
+
+     if(!qry.exec())
+     {
+         qDebug() <<"error Loading values to db" << endl;
+     }
+
+    model->setQuery(qry);
+    return model;
+}
+
+    // -----------------STORY 7 CODE-------------------------//
+// This function adds new customers to the Customers table when admin is creating purchases
+void DBManager::AddToCustomersTable(QString name, QString id, QString type, int month, int day, int year)
+{
+    QSqlQuery qry;
+    qry.prepare("INSERT INTO Customers (name, ID, type, expMonth, expDay, expYear) VALUES (?, ?, ?, ?, ?, ?);");
+
+    qry.addBindValue(name);
+    qry.addBindValue(id);
+    qry.addBindValue(type);
+    qry.addBindValue(month);
+    qry.addBindValue(day);
+    qry.addBindValue(year);
+
+    if(!qry.exec())
+    {
+        qDebug() <<"error Loading values to db" << endl;
+    }
+}
+
+void DBManager::AddToDailySalesReport(QString id, QString item, int quantity)
+{
+    QString purchaseDate = "12/09/2019"; // will be the default purchase date
+    QSqlQuery qry;
+
+    double price = DBManager::GetItemPrice(item);  // will return the price of a given item
+
+    // Adds new info to the table
+    qry.prepare("INSERT INTO dailySalesReport (purchaseDate, ID, item, price, quantity) VALUES (?, ?, ?, ?, ?);");
+    qry.addBindValue(purchaseDate);
+    qry.addBindValue(id);
+    qry.addBindValue(item);
+    qry.addBindValue(price);
+    qry.addBindValue(quantity);
+
+    if(!qry.exec())
+    {
+        qDebug() <<"error Loading values to db" << endl;
+    }
+
+}
+
+// This function returns the item price based on the itemName
+double DBManager::GetItemPrice(QString itemName)
+{
+    QSqlQuery qry;
+    double itemPrice = 0;
+
+    qry.prepare("SELECT price from inventory where item = \""+itemName+"\";");
+
+    qry.exec();
+    if(qry.next())
+    {
+        itemPrice = qry.value(0).toDouble();
+    }
+
+    return itemPrice;
+
 }

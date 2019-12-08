@@ -45,6 +45,10 @@ public:
 
      void ChangeToTotalPurchasesPage();
 
+     //------------------------STORY 9 and 10 code----------------------------------//
+    void ShowItemsInComboBox(QSqlQueryModel *model);
+
+    void ShowNamesInComboBox(QSqlQueryModel *model);
 
 private slots:
      /*******************************************************
@@ -113,6 +117,10 @@ private slots:
      *******************************************************/
      void on_displayAllInfoBtn_clicked();
 
+
+     void on_enterItemPushBtn_clicked();
+
+     void on_enterNamePushBtn_clicked();
 
 private:
     Ui::StoreManagerPage *ui;
