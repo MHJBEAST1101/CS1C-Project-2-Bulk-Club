@@ -17,9 +17,6 @@ StoreManagerPage::StoreManagerPage(QWidget *parent) :
 
      // When the constructor is called, the ShowNamesInComboBox() function is called to automatically set the combo box for member name input
       ShowNamesInComboBox(databaseObj.loadNamesOnly());
-
-      // When the constructor is called, the ShowExpMonthsInComboBox() function is called to automatically set the combo box for expiration month inputs
-      ShowExpMonthsInComboBox(databaseObj.loadExpirationMonthsIntoComboBox());
 }
 
 StoreManagerPage::~StoreManagerPage()
@@ -250,8 +247,6 @@ void StoreManagerPage::setupConnections()
     connect(ui->dailySalesBackBtn,&QPushButton::clicked, this, &StoreManagerPage::GoToHomePage);
     connect(ui->totalPurchasesPushBtn, &QPushButton::clicked, this, &StoreManagerPage::ChangeToTotalPurchasesPage);
     connect(ui->totalPurchasesBackBtn, &QPushButton::clicked, this, &StoreManagerPage::GoToHomePage);
-    connect(ui->rebatePushBtn, &QPushButton::clicked, this, &StoreManagerPage::ChangeToRebateAndExpPage);
-    connect(ui->rebateBackBtn, &QPushButton::clicked, this, &StoreManagerPage::GoToHomePage);
 }
 
 /*******************************************************
@@ -330,54 +325,5 @@ void StoreManagerPage::ChangeToTotalPurchasesPage()
     totalRevenueString = QString::number(revenue, 'f', 2);
 
     ui->grandTotalLineEdit->setText("$"+totalRevenueString);
+
 }
-
-//---------------------------------------------------Story 4 and 5 code-----------------------------------------------//
-// Changes to rebate and expiration page and will set all the widgets to be their intended features
-void StoreManagerPage::ChangeToRebateAndExpPage()
-{
-    ui->stackedWidget->setCurrentWidget(ui->rebateAndExpPage);
-
-    QLineEdit *lineEdit = new QLineEdit;             // Item is used for item combo box
-    lineEdit->setPlaceholderText("SELECT MONTHS");    // Sets default date for combobox(will turn into lineedit)
-
-    // Sets the expiration month combo box to be empty
-    ui->expMonthComboBox->setLineEdit(lineEdit);
-    ui->expMonthComboBox->setCurrentText("");
-}
-
-// Will set the rebate and exp table view to be the QSqlQueryModel's model
-void StoreManagerPage::ShowRebateAndExpMonthTable(QSqlQueryModel *model)
-{
-    ui->rebateAndExpTableView->setModel(model);
-}
-
-// This function will show the expiration months for combo box entries
-void StoreManagerPage::ShowExpMonthsInComboBox(QSqlQueryModel *model)
-{
-    ui->expMonthComboBox->setModel(model);
-}
-
- // Story 4 slot, will show the rebate table once button is clicked
-void StoreManagerPage::on_displayRebatePushBtn_clicked()
-{
-    ShowRebateAndExpMonthTable(databaseObj.LoadRebateModel());
-
-    ui->expMonthComboBox->setCurrentText("");
-}
-
- // Story 5 slot, will display members whose memberships expire on a given month
-void StoreManagerPage::on_expMonthEnterBtn_clicked()
-{
-    QString expMonth = ui->expMonthComboBox->currentText(); // Obtains month input from combo box
-
-    // if month is empty, then an error message will appear
-    if(expMonth == "") {
-        QMessageBox::warning(this, "Warning", "Please enter a month");
-    }
-    // Otherwise, the table view will be set so that it contains information from a given exp month
-    else {
-        ShowRebateAndExpMonthTable(databaseObj.loadMemberInfoFromExpMonth(expMonth));
-    }
-}
-//------------------------------------------------END OF STORY 4 and 5-----------------------------------------------//
