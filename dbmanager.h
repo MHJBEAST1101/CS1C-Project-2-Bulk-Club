@@ -68,6 +68,17 @@ public:
     *******************************************************/
     int ReturnMemberTypeCount(QString date,QString memberType);
 
+    /*******************************************************
+    * loadDateEntriesOnly()-
+    *  This function returns a QSqlQueryModel consisting
+    *  of only the purchaseDate entries from the
+    *  dailySalesReport table in the database.
+    *  This function will be called by the store manager to
+    *  set the date combo box to the returned model
+    *  RETURNS QSqlQueryModel
+    *******************************************************/
+    QSqlQueryModel *loadDateEntriesOnly();
+
     //---------------------STORY 2 & 3 CODE------------------------------
     /*******************************************************
     *loadTotalMemberOrItemPurchases(QString decider)-
@@ -77,6 +88,7 @@ public:
     *   RETURNS model (QSqlQueryModel)
     *******************************************************/
     QSqlQueryModel *loadTotalMemberOrItemPurchases(QString decider);
+
 
 private:
     QSqlDatabase m_database;

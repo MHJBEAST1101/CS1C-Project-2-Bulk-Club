@@ -48,7 +48,6 @@ private slots:
 private:
     Ui::AdminPage *ui;
     DBManager databaseObj;
-    QSqlQuery data;
 };
 
 #endif // ADMINPAGE_H
