@@ -50,6 +50,15 @@ public:
 
     void ShowNamesInComboBox(QSqlQueryModel *model);
 
+    //--------------------------------STORY 4 and 5 CODE-----------------------------------//
+    void ChangeToRebateAndExpPage();        // Changes to rebate and expiration page and will set all the widgets to be their intended features
+
+    void ShowRebateAndExpMonthTable(QSqlQueryModel *model);    // Will set the rebate and exp table view to be the QSqlQueryModel's model
+
+    // This function will show the expiration months for combo box entries
+    void ShowExpMonthsInComboBox(QSqlQueryModel *model);
+    //----------------------------------END OF STORY 4 and 5--------------------------------------------//
+
 private slots:
      /*******************************************************
       * on_dateEnterBtn_clicked() -
@@ -121,6 +130,11 @@ private slots:
      void on_enterItemPushBtn_clicked();
 
      void on_enterNamePushBtn_clicked();
+
+     void on_displayRebatePushBtn_clicked();    // Story 4 slot, will show the rebate table once button is clicked
+
+
+     void on_expMonthEnterBtn_clicked();        // Story 5 slot, will display members whose memberships expire on a given month
 
 private:
     Ui::StoreManagerPage *ui;

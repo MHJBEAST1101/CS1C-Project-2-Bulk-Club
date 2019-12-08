@@ -4,7 +4,7 @@ DBManager::DBManager()
 {
     // Connecting to database
     m_database = QSqlDatabase::addDatabase("QSQLITE");
-    m_database.setDatabaseName("G:/CS1C Lebowitz/Qt Workspace/Project 2 Bulk Club Updated/CS1C Project 2 Bulk Club Merged 1/CS1C-Project-2-Bulk-Club-temporary-master-branch/CS1CProject2.db⁩");
+    m_database.setDatabaseName("G:/CS1C Lebowitz/Qt Workspace/Project 2 Bulk Club Updated/CS1C Project 2 Bulk Club Merged #2/CS1C-Project-2-Bulk-Club-temporary-master-branch/CS1CProject2.db⁩");
     if(!m_database.open())
     {
         qDebug() << "problem opening database" << endl;
@@ -430,3 +430,61 @@ double DBManager::GetItemPrice(QString itemName)
     return itemPrice;
 
 }
+
+                    //---------------------STORY 4 and 5 CODE------------------------//
+
+// This function will load the rebate table for executive members using a sql query
+QSqlQueryModel *DBManager::LoadRebateModel()
+{
+    QSqlQueryModel *model = new QSqlQueryModel();
+    QSqlQuery qry;
+
+
+    qry.prepare("select name, Customers.ID, type, \"$\" || printf(\"%.2f\", ifnull((sum(price * quantity)+120)*.02, 120*.02)) as \"Rebate amount\""
+                " from Customers left join dailySalesReport"
+                " on Customers.ID = dailySalesReport.ID where type = \"Executive\" group by Customers.ID order by Customers.ID;");
+
+     if(!qry.exec())
+     {
+         qDebug() <<"error Loading values to db" << endl;
+     }
+
+    model->setQuery(qry);
+    return model;
+}
+
+// This function will load the expiration months into the exp month combo box
+QSqlQueryModel *DBManager::loadExpirationMonthsIntoComboBox()
+{
+    QSqlQueryModel *model = new QSqlQueryModel();
+    QSqlQuery qry;
+
+    qry.prepare("select expMonth from Customers group by expMonth order by expMonth;");
+
+    if(!qry.exec())
+    {
+        qDebug() <<"error Loading values to db" << endl;
+    }
+
+   model->setQuery(qry);
+   return model;
+}
+
+// This function will return a model consisting of member information based on the given expiration month input
+QSqlQueryModel *DBManager::loadMemberInfoFromExpMonth(QString expMonth)
+{
+    QSqlQueryModel *model = new QSqlQueryModel();
+    QSqlQuery qry;
+
+    qry.prepare("select name, ID, type, expMonth, \"$65\" as \"Renew Price\" from Customers where type = \"Regular\" and expMonth = "+expMonth+" UNION "
+                "select name, ID, type, expMonth, \"$120\" as \"Renew Price\" from Customers where type = \"Executive\" and expMonth = "+expMonth+";");
+
+    if(!qry.exec())
+    {
+        qDebug() <<"error Loading values to db" << endl;
+    }
+
+   model->setQuery(qry);
+   return model;
+}
+                //---------------------------END OF STORY 4 and 5------------------------------------//

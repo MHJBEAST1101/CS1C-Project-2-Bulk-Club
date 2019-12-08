@@ -135,10 +135,18 @@ public:
 
     // This function returns the item price based on the itemName
     double GetItemPrice(QString itemName);
-
     //----------------END of Story 7 code-------------------//
 
+    //---------------------STORY 4 and 5 CODE---------------//
+       // This function will load the rebate table for executive members
+    QSqlQueryModel *LoadRebateModel();
 
+    // This function will load the expiration months into the exp month combo box
+    QSqlQueryModel *loadExpirationMonthsIntoComboBox();
+
+    // This function will return a model consisting of member information based on the given expiration month input
+    QSqlQueryModel *loadMemberInfoFromExpMonth(QString expMonth);
+    //-----------------------END OF STORY 4 and 5----------------------//
 
 private:
     QSqlDatabase m_database;
