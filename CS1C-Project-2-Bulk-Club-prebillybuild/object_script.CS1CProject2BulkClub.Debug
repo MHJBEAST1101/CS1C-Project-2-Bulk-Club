@@ -1,0 +1,10 @@
+debug/adminpage.o
+debug/dbmanager.o
+debug/main.o
+debug/mainwindow.o
+debug/storemanagerpage.o
+debug/yesno.o
+debug/moc_adminpage.o
+debug/moc_mainwindow.o
+debug/moc_storemanagerpage.o
+debug/moc_yesno.o

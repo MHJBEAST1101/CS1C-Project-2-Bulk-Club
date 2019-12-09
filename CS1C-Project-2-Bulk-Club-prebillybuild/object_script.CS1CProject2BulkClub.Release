@@ -1,0 +1,10 @@
+release/adminpage.o
+release/dbmanager.o
+release/main.o
+release/mainwindow.o
+release/storemanagerpage.o
+release/yesno.o
+release/moc_adminpage.o
+release/moc_mainwindow.o
+release/moc_storemanagerpage.o
+release/moc_yesno.o
